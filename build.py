@@ -35,6 +35,7 @@ except ImportError:
 ROOT = pathlib.Path(__file__).parent
 POSTS_DIR = ROOT / "posts"
 SITE_DIR = ROOT / "blog"
+INDEX_HTML = ROOT / "index.html"   # homepage; its Insights section is refreshed on build
 
 # ------------------------------------------------------------------ brand CSS
 # Locked HeartCoach design system. Slate = trust, Sage = calm/data,
@@ -235,6 +236,22 @@ def render_home_partial(posts):
     return out
 
 
+def refresh_home_insights(posts):
+    """Keep the homepage's Insights section in sync with the latest published posts.
+    Replaces whatever sits between <!-- INSIGHTS:START --> and <!-- INSIGHTS:END -->."""
+    if not INDEX_HTML.exists():
+        return
+    start, end = "<!-- INSIGHTS:START -->", "<!-- INSIGHTS:END -->"
+    page = INDEX_HTML.read_text(encoding="utf-8")
+    if start not in page or end not in page:
+        return
+    cards = render_home_partial(posts) or '<p style="color:var(--text-muted)">New articles coming soon.</p>'
+    before = page.split(start)[0]
+    after = page.split(end, 1)[1]
+    INDEX_HTML.write_text(f"{before}{start}\n{cards}        {end}{after}", encoding="utf-8")
+    print("  homepage Insights section refreshed with the latest posts.")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--include-drafts", action="store_true",
@@ -258,6 +275,7 @@ def main():
 
     (SITE_DIR / "index.html").write_text(render_index(published), encoding="utf-8")
     (SITE_DIR / "insights-cards.partial.html").write_text(render_home_partial(published), encoding="utf-8")
+    refresh_home_insights(published)
 
     print(f"Built {rendered} published post(s) -> {SITE_DIR}/")
     print(f"  index.html + insights-cards.partial.html regenerated.")
