@@ -1,0 +1,137 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The 90 days between visits decide cardiac outcomes — HeartCoach</title>
+<meta name="description" content="Most of a cardiac patient&#x27;s year happens away from the clinic. What fills that gap determines adherence, readmissions, and practice value.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"><style>
+:root{
+  --slate-deep:#1C2B2A;--slate:#2D4A47;--slate-hover:#233B39;--sage-mid:#4A7A74;
+  --sage-light:#A8C8C4;--sage-mist:#E8F2F1;--rose:#C97A7A;--rose-hover:#BB6A6A;
+  --rose-light:#E8B0B0;--rose-mist:#FAF0F0;--bg:#F6F6F8;--surface:#FFFFFF;
+  --text:#1C2B2A;--text-muted:#4A7A74;--on-dark-mut:rgba(255,255,255,.55);
+  --font-head:"DM Sans",system-ui,-apple-system,sans-serif;
+  --font-body:"Lato",system-ui,-apple-system,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);font-size:18px;line-height:1.7;color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,.eyebrow{font-family:var(--font-head)}
+h1,h2,h3,h4{font-weight:500;line-height:1.25;letter-spacing:-.01em;color:var(--slate-deep)}
+em{font-style:italic;color:var(--rose)}
+a{color:var(--slate)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--slate);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1140px;margin:0 auto;padding:0 28px}
+/* nav */
+header.nav{position:sticky;top:0;z-index:100;background:var(--slate-deep)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+.logo{display:inline-flex;align-items:baseline;font-family:var(--font-head);font-size:1.4rem;font-weight:600}
+.logo .mark{color:var(--rose-light);margin-right:8px;font-size:1.15rem}
+.logo .heart-txt{color:#fff}.logo .coach-txt{color:var(--rose-light)}
+.nav-links{display:flex;gap:6px}
+.nav-links a{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;font-family:var(--font-head);font-weight:500;font-size:1rem;color:var(--on-dark-mut);border-radius:8px}
+.nav-links a:hover{color:#fff}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:14px 28px;font-family:var(--font-head);font-size:1.0625rem;font-weight:500;border-radius:999px;border:2px solid transparent;cursor:pointer;transition:background .18s,transform .18s}
+.btn-care{background:var(--rose);color:#fff}.btn-care:hover{background:var(--rose-hover);transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--slate);border-color:var(--sage-light)}
+.btn-ghost:hover{background:var(--sage-mist);border-color:var(--sage-mid)}
+/* article */
+.article-hero{background:linear-gradient(180deg,var(--sage-mist),var(--bg));padding:64px 0 40px}
+.article-hero .cat{font-family:var(--font-head);font-weight:600;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--sage-mid)}
+.article-hero h1{font-size:clamp(2rem,4.5vw,3rem);max-width:22ch;margin:16px 0 18px}
+.article-hero .meta{color:var(--text-muted);font-size:1.02rem}
+.article{max-width:720px;margin:0 auto;padding:48px 28px 24px}
+.article p{margin:0 0 22px}
+.article h2{font-size:1.6rem;margin:40px 0 14px}
+.article h3{font-size:1.28rem;margin:30px 0 10px}
+.article ul,.article ol{margin:0 0 22px 24px}
+.article li{margin:0 0 10px}
+.article a{color:var(--slate);text-decoration:underline;text-underline-offset:2px}
+.article a:hover{color:var(--rose)}
+.article blockquote{margin:26px 0;padding:16px 22px;background:var(--sage-mist);border-left:4px solid var(--rose);border-radius:0 12px 12px 0;font-size:1.15rem;color:var(--slate-deep)}
+.article strong{color:var(--slate-deep)}
+/* sources + footer blocks */
+.sources{max-width:720px;margin:8px auto 0;padding:24px 28px;border-top:1px solid var(--sage-light)}
+.sources h4{font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;color:var(--sage-mid);margin-bottom:12px}
+.sources ol{margin:0 0 0 20px}.sources li{margin-bottom:8px;font-size:.98rem;color:var(--text-muted)}
+.sources a{color:var(--slate)}
+.med-note{max-width:720px;margin:24px auto 0;padding:18px 22px;background:var(--rose-mist);border-left:4px solid var(--rose-light);border-radius:0 12px 12px 0;font-size:1rem;color:var(--slate-deep)}
+.reviewed{max-width:720px;margin:16px auto 0;padding:0 28px;font-size:.92rem;color:var(--sage-mid)}
+.post-cta{background:var(--slate-deep);color:#fff;text-align:center;padding:64px 0;margin-top:56px}
+.post-cta h2{color:#fff;margin-bottom:14px}.post-cta em{color:var(--rose-light)}
+.post-cta p{color:var(--on-dark-mut);max-width:520px;margin:0 auto 26px}
+/* index */
+.index-hero{background:linear-gradient(180deg,var(--sage-mist),var(--bg));padding:72px 0 40px;text-align:center}
+.index-hero h1{font-size:clamp(2.2rem,5vw,3.2rem)}
+.index-hero p{color:var(--text-muted);font-size:1.2rem;max-width:600px;margin:14px auto 0}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:56px 0 80px}
+.card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--sage-light);border-radius:18px;overflow:hidden;box-shadow:0 1px 2px rgba(28,43,42,.04),0 4px 16px rgba(28,43,42,.05);transition:transform .18s,box-shadow .18s}
+.card:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(28,43,42,.09)}
+.card .thumb{height:8px;background:linear-gradient(90deg,var(--sage-mid),var(--rose-light))}
+.card .body{padding:26px;display:flex;flex-direction:column;flex:1}
+.card .cat{font-family:var(--font-head);font-weight:600;font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;color:var(--sage-mid)}
+.card h3{font-size:1.2rem;margin:12px 0 10px}
+.card h3 a{color:var(--slate-deep);text-decoration:none}.card h3 a:hover{color:var(--rose)}
+.card p{color:var(--text-muted);font-size:1rem;flex:1}
+.card .meta{margin-top:18px;font-size:.9rem;color:var(--sage-mid)}
+.draft-flag{position:fixed;top:0;left:0;right:0;background:var(--rose);color:#fff;text-align:center;font-family:var(--font-head);font-weight:600;padding:8px;z-index:200;letter-spacing:.04em}
+footer.foot{background:var(--slate-deep);padding:40px 0;border-top:1px solid rgba(255,255,255,.08)}
+.foot-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.foot-copy{color:rgba(255,255,255,.4);font-size:.95rem}
+.back{display:inline-block;margin-top:8px;font-family:var(--font-head);font-weight:500;color:var(--slate)}
+@media(max-width:940px){.grid{grid-template-columns:1fr}}
+@media(max-width:760px){.nav-links{display:none}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style></head><body>
+<header class="nav"><div class="wrap nav-inner"><a href="../index.html" class="logo" aria-label="HeartCoach home"><span class="mark" aria-hidden="true">&#9829;</span><span class="heart-txt">Heart</span><span class="coach-txt">Coach</span></a><nav class="nav-links" aria-label="Primary"><a href="../index.html#how">How It Works</a><a href="../index.html#features">Features</a><a href="index.html">Insights</a><a href="../index.html#contact">Get Early Access</a></nav></div></header>
+<div class="article-hero"><div class="wrap"><div class="cat">Engagement</div>
+<h1>The 90 days between visits decide cardiac outcomes</h1><div class="meta">August 20, 2026 &middot; 5 min read</div></div></div>
+<article class="article"><p>A cardiologist might see a patient for 20 minutes, three or four times a year. The
+rest of that patient's year — the medications taken or skipped, the blood pressure
+that drifts, the symptoms noticed or ignored — happens somewhere no clinician can see.</p>
+<p>That gap is where cardiac outcomes are actually decided. And for most practices, it
+is completely unmanaged.</p>
+<h2>The quiet drift</h2>
+<p>Patients don't disengage in a dramatic moment. They drift. A dose missed on a busy
+morning becomes a pattern. A care plan handed over at discharge gets folded into a
+drawer. By the time the next appointment arrives, the trajectory is often already set.</p>
+<p>The scale of the problem is well documented. The World Health Organization's landmark
+review of long-term therapy adherence concluded that in developed countries, only
+about half of patients with chronic conditions take their medications as prescribed —
+a figure it called a problem of "striking magnitude." Cardiac patients are not the
+exception to this; they are among the clearest examples of it.</p>
+<blockquote>
+<p>The single most consequential period in cardiac care is the one no one is watching.</p>
+</blockquote>
+<h2>Why the gap is expensive</h2>
+<p>For a practice, disengagement isn't only a clinical problem — it's an operational and
+financial one. A patient who drifts is a patient who returns sicker, or doesn't return
+at all. Both outcomes erode the value of the relationship the practice worked to build.</p>
+<p>The economics compound. As care increasingly ties reimbursement to quality and
+outcomes, the between-visit period stops being invisible overhead and becomes a
+measurable line item. Engagement is quietly becoming a quality metric.</p>
+<h2>What actually closes the gap</h2>
+<p>Closing the gap doesn't mean adding work for an already-stretched care team. Three
+things tend to matter most:</p>
+<ul>
+<li><strong>Presence, not intensity.</strong> A brief, daily touchpoint beats an intensive program
+  patients abandon in a week. The goal is a habit measured in seconds, not a second job.</li>
+<li><strong>Trust that transfers.</strong> Patients follow guidance they associate with their own
+  physician. An intervention that carries the clinician's endorsement clears the
+  adoption barrier that generic wellness apps never do.</li>
+<li><strong>Escalation that respects clinical time.</strong> The care team should hear about the
+  patient whose readings are drifting — and <em>only</em> that patient — not a firehose of data.</li>
+</ul>
+<h2>The takeaway for practices</h2>
+<p>The between-visit period isn't a soft problem to solve "someday." It's where adherence
+is won or lost, where readmissions originate, and increasingly where practice value is
+measured. The question isn't whether to manage those 90 days. It's who — or what — is
+going to.</p>
+<p>HeartCoach was built to own exactly that gap: a physician-prescribed cardiac coach
+that keeps patients engaged day to day, and routes the right signal back to the care
+team when it matters. If that's a problem your organization is thinking about, we'd
+welcome a conversation.</p></article>
+<div class="sources"><h4>Sources</h4><ol><li><a href="https://www.who.int/chp/knowledge/publications/adherence_report/en/" target="_blank" rel="noopener">WHO — Adherence to Long-Term Therapies: Evidence for Action (2003)</a></li><li><a href="https://www.cdc.gov/chronic-disease/about/index.html" target="_blank" rel="noopener">CDC — About Chronic Diseases</a></li></ol></div>
+<div class="wrap"><a class="back" href="index.html">&larr; All insights</a></div>
+<section class="post-cta"><div class="wrap"><h2>Your heart has a <em>coach now.</em></h2>
+<p>See how HeartCoach keeps cardiac patients engaged between every appointment.</p>
+<a class="btn btn-care" href="../index.html#contact">Get early access</a></div></section>
+<footer class="foot"><div class="wrap foot-inner"><a href="../index.html" class="logo"><span class="mark" aria-hidden="true">&#9829;</span><span class="heart-txt">Heart</span><span class="coach-txt">Coach</span></a><div class="foot-copy">&copy; 2026 HeartCoach Inc. All rights reserved.</div></div></footer></body></html>

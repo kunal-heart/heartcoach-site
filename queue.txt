@@ -1,0 +1,16 @@
+b2b | The economics of patient retention for a cardiology practice
+patient | Small daily walks: the most underrated heart habit
+b2b | Remote patient monitoring in 2026: what the CMS code changes mean
+patient | AFib and your daily routine: questions worth asking your cardiologist
+b2b | Why 75% of health apps lose patients in week one, and how to design against it
+patient | How to prepare for your next cardiology appointment
+b2b | Behavioral science on the care team: Tiny Habits and the Hooked Model in cardiac care
+patient | Understanding your heart medications: a plain-language primer
+b2b | Population health analytics without adding to clinical workload
+patient | When to call your care team vs. when to call 911
+b2b | Value-based cardiac care: engagement as a quality metric
+patient | Caregivers: how to support a loved one after a cardiac event
+b2b | Wearables and cardiac care: signal, noise, and what's clinically useful
+patient | Sleep, stress, and your heart: the everyday connection
+b2b | Building the evidence: how a pilot generates publishable outcomes data
+patient | Reading a nutrition label with your heart in mind
