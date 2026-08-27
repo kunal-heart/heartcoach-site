@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HeartCoach — Your heart has a coach now.</title>
+<meta name="description" content="HeartCoach is the AI cardiac coaching platform that cardiovascular organizations license to keep their patients engaged, adherent, and healthy — between every appointment.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     HeartCoach — Slate / Sage / Rose design system
+     Slate = trust · Sage = calm/data · Rose = care/warmth/the heart
+     NEVER pure red. Rose carries all "attention" meaning.
+     Built for cardiac patients 55+: 18px body, 1.7 leading,
+     44px min touch targets, 2px slate focus rings.
+     ============================================================ */
+  :root {
+    --slate-deep:  #1C2B2A;
+    --slate:       #2D4A47;
+    --slate-hover: #233B39;
+    --sage-mid:    #4A7A74;
+    --sage-light:  #A8C8C4;
+    --sage-mist:   #E8F2F1;
+    --rose:        #C97A7A;
+    --rose-hover:  #BB6A6A;
+    --rose-light:  #E8B0B0;
+    --rose-mist:   #FAF0F0;
+    --bg:          #F6F6F8;
+    --surface:     #FFFFFF;
+
+    --text:        #1C2B2A;
+    --text-muted:  #4A7A74;
+    --on-dark:     #FFFFFF;
+    --on-dark-mut: rgba(255,255,255,0.55);
+
+    --font-head: "DM Sans", system-ui, -apple-system, sans-serif;
+    --font-body: "Lato", system-ui, -apple-system, sans-serif;
+
+    --maxw: 1140px;
+    --radius: 18px;
+    --radius-sm: 12px;
+    --shadow-sm: 0 1px 2px rgba(28,43,42,0.04), 0 4px 16px rgba(28,43,42,0.05);
+    --shadow-md: 0 8px 30px rgba(28,43,42,0.09);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+
+  body {
+    font-family: var(--font-body);
+    font-size: 18px;              /* 55+ audience: never below 16 */
+    line-height: 1.7;
+    color: var(--text);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, .eyebrow { font-family: var(--font-head); }
+  h1, h2, h3, h4 { font-weight: 500; line-height: 1.2; letter-spacing: -0.01em; color: var(--slate-deep); }
+  em { font-style: italic; color: var(--rose); }
+
+  a { color: var(--slate); text-decoration: none; }
+
+  /* Accessible focus for keyboard users */
+  a:focus-visible, button:focus-visible, .btn:focus-visible {
+    outline: 2px solid var(--slate);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+
+  section { padding: 96px 0; }
+  .section-sage { background: var(--sage-mist); }
+  .section-white { background: var(--surface); }
+
+  .eyebrow {
+    display: inline-block;
+    font-size: 0.8125rem;         /* 13px eyebrow is decorative, not body */
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sage-mid);
+    margin-bottom: 18px;
+  }
+  .eyebrow.pill {
+    background: var(--sage-mist);
+    color: var(--sage-mid);
+    padding: 8px 16px;
+    border-radius: 999px;
+    letter-spacing: 0.06em;
+  }
+  .section-head { max-width: 720px; margin-bottom: 56px; }
+  h2 { font-size: clamp(1.9rem, 4vw, 2.5rem); margin-bottom: 16px; }
+  .section-head p { font-size: 1.2rem; color: var(--text-muted); }
+
+  /* ---- Buttons ---- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 52px;             /* > 44px touch target */
+    padding: 14px 28px;
+    font-family: var(--font-head);
+    font-size: 1.0625rem;
+    font-weight: 500;
+    border-radius: 999px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: background .18s ease, transform .18s ease, border-color .18s ease, color .18s ease;
+  }
+  .btn-care { background: var(--rose); color: #fff; }          /* energetic conversion CTA */
+  .btn-care:hover { background: var(--rose-hover); transform: translateY(-1px); }
+  .btn-trust { background: var(--slate); color: #fff; }        /* trust action */
+  .btn-trust:hover { background: var(--slate-hover); transform: translateY(-1px); }
+  .btn-ghost { background: transparent; color: var(--slate); border-color: var(--sage-light); }
+  .btn-ghost:hover { background: var(--sage-mist); border-color: var(--sage-mid); }
+
+  /* ============================================================
+     NAV
+     ============================================================ */
+  header.nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--slate-deep);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 72px;
+  }
+  .logo { display: inline-flex; align-items: baseline; font-family: var(--font-head); font-size: 1.4rem; font-weight: 600; }
+  .logo .mark { color: var(--rose-light); margin-right: 8px; font-size: 1.15rem; }
+  .logo .heart-txt { color: #fff; }
+  .logo .coach-txt { color: var(--rose-light); }  /* "Coach" accent on dark */
+  .nav-links { display: flex; align-items: center; gap: 6px; }
+  .nav-links a.navlink {
+    display: inline-flex; align-items: center; min-height: 44px;
+    padding: 0 14px;
+    font-family: var(--font-head); font-weight: 500; font-size: 1rem;
+    color: var(--on-dark-mut);
+    border-radius: 8px;
+    transition: color .15s ease;
+  }
+  .nav-links a.navlink:hover { color: #fff; }
+  .nav-cta { margin-left: 8px; }
+  .nav-cta .btn { min-height: 44px; padding: 10px 22px; }
+  .menu-toggle { display: none; background: none; border: none; color: #fff; font-size: 1.6rem; cursor: pointer; min-height: 44px; min-width: 44px; }
+
+  /* ============================================================
+     HERO
+     ============================================================ */
+  .hero {
+    background:
+      radial-gradient(1100px 500px at 80% -10%, rgba(168,200,196,0.35), transparent 60%),
+      linear-gradient(180deg, var(--sage-mist) 0%, var(--bg) 70%);
+    padding: 84px 0 76px;
+    text-align: center;
+  }
+  .hero h1 {
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    max-width: 15ch;
+    margin: 22px auto 20px;
+  }
+  .hero p.lead {
+    font-size: 1.3rem; line-height: 1.6;
+    color: var(--text-muted);
+    max-width: 620px; margin: 0 auto 34px;
+  }
+  .hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 20px; max-width: 760px; margin: 72px auto 0;
+  }
+  .hstat { text-align: center; padding: 0 8px; }
+  .hstat .num { font-family: var(--font-head); font-weight: 600; font-size: clamp(2rem, 4vw, 2.75rem); color: var(--slate); line-height: 1.1; }
+  .hstat .num.rose { color: var(--rose); }
+  .hstat .lbl { font-size: 1rem; color: var(--text-muted); margin-top: 8px; }
+
+  /* ============================================================
+     VIDEO
+     ============================================================ */
+  .video-wrap {
+    max-width: 900px; margin: 0 auto;
+    border-radius: var(--radius); overflow: hidden;
+    box-shadow: var(--shadow-md);
+    background: var(--slate-deep);
+    aspect-ratio: 16 / 9;
+  }
+  .video-wrap video { width: 100%; height: 100%; display: block; object-fit: cover; }
+  .center-head { text-align: center; }
+  .center-head .section-head { margin-left: auto; margin-right: auto; }
+
+  /* ============================================================
+     HOW IT WORKS
+     ============================================================ */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .step {
+    background: var(--surface);
+    border: 1px solid var(--sage-light);
+    border-radius: var(--radius);
+    padding: 34px 30px;
+    box-shadow: var(--shadow-sm);
+  }
+  .step .idx { font-family: var(--font-head); font-weight: 700; font-size: 0.95rem; color: var(--rose); letter-spacing: 0.08em; }
+  .step .ic {
+    width: 56px; height: 56px; border-radius: 14px;
+    background: var(--sage-mist); color: var(--sage-mid);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; margin: 16px 0 18px;
+  }
+  .step h3 { font-size: 1.35rem; margin-bottom: 10px; }
+  .step p { color: var(--text-muted); font-size: 1.05rem; }
+  .step .step-cite { margin-top: 14px; font-size: 0.9rem; line-height: 1.5; color: var(--sage-mid); }
+  .step .step-cite a { color: var(--slate); text-decoration: underline; text-underline-offset: 2px; }
+  .step .step-cite a:hover { color: var(--rose); }
+
+  /* ============================================================
+     FEATURES
+     ============================================================ */
+  .features-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .feature {
+    background: var(--surface);
+    border: 1px solid var(--sage-light);
+    border-radius: var(--radius);
+    padding: 34px 32px;
+    box-shadow: var(--shadow-sm);
+  }
+  .feature.lead-feature { grid-column: 1 / -1; display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 36px; align-items: center; }
+  .feature .ic {
+    width: 52px; height: 52px; border-radius: 13px;
+    background: var(--sage-mist); color: var(--sage-mid);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; margin-bottom: 18px;
+  }
+  .feature.triage .ic { background: var(--rose-mist); color: var(--rose); } /* attention = rose, never red */
+  .feature h3 { font-size: 1.3rem; margin-bottom: 10px; }
+  .feature p { color: var(--text-muted); font-size: 1.05rem; }
+  .feature .note {
+    margin-top: 16px; padding-top: 16px;
+    border-top: 1px solid var(--sage-light);
+    font-size: 0.98rem; color: var(--sage-mid);
+  }
+
+  /* Snapshot mini-card inside the lead feature */
+  .snapshot {
+    background: var(--slate-deep);
+    border-radius: var(--radius);
+    padding: 26px 26px 22px;
+    color: #fff;
+  }
+  .snapshot .cap { font-family: var(--font-head); font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--on-dark-mut); margin-bottom: 16px; }
+  .snap-row { display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid rgba(255,255,255,0.09); }
+  .snap-row:first-of-type { padding-top: 0; }
+  .snap-lbl { color: var(--on-dark-mut); font-size: 1rem; }
+  .snap-val { font-family: var(--font-head); font-weight: 600; font-size: 1.05rem; }
+  .snap-val.good { color: var(--rose-light); }
+  .snap-tip {
+    margin-top: 16px; background: rgba(168,200,196,0.14);
+    border-left: 3px solid var(--rose-light);
+    border-radius: 0 10px 10px 0;
+    padding: 12px 14px; font-size: 0.98rem; color: #fff; font-style: italic;
+  }
+
+  /* ============================================================
+     PRICING
+     ============================================================ */
+  .pricing-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 900px; margin: 0 auto; }
+  .price-card {
+    position: relative; background: var(--surface);
+    border: 1px solid var(--sage-light);
+    border-radius: var(--radius); padding: 40px 34px;
+    box-shadow: var(--shadow-sm);
+    display: flex; flex-direction: column;
+  }
+  .price-card.featured { border: 2px solid var(--rose); box-shadow: var(--shadow-md); }
+  .badge {
+    position: absolute; top: -13px; left: 34px;
+    background: var(--rose); color: #fff;
+    font-family: var(--font-head); font-weight: 600; font-size: 0.75rem;
+    letter-spacing: 0.08em; padding: 5px 14px; border-radius: 999px;
+  }
+  .price-card .tier { font-family: var(--font-head); font-weight: 600; color: var(--sage-mid); font-size: 1rem; }
+  .price-card .amount { font-family: var(--font-head); font-weight: 600; font-size: 3rem; color: var(--slate-deep); line-height: 1.1; margin: 10px 0 4px; }
+  .price-card .sub { color: var(--text-muted); font-size: 1rem; margin-bottom: 24px; }
+  .price-card ul { list-style: none; margin-bottom: 28px; display: grid; gap: 12px; }
+  .price-card li { position: relative; padding-left: 30px; color: var(--text); font-size: 1.02rem; }
+  .price-card li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--sage-mid); font-weight: 700; }
+  .price-card .btn { width: 100%; margin-top: auto; }
+  .pricing-note { text-align: center; color: var(--text-muted); margin-top: 32px; font-size: 1.05rem; }
+
+  /* ============================================================
+     ABOUT + STAT STRIP
+     ============================================================ */
+  .about-lead { max-width: 760px; margin-bottom: 44px; }
+  .about-lead p { font-size: 1.2rem; color: var(--text-muted); margin-top: 16px; }
+  .stat-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .sstat {
+    background: var(--surface); border: 1px solid var(--sage-light);
+    border-radius: var(--radius); padding: 30px 28px;
+  }
+  .sstat .num { font-family: var(--font-head); font-weight: 600; font-size: 2.4rem; color: var(--slate); line-height: 1.1; }
+  .sstat .num.rose { color: var(--rose); }
+  .sstat .lbl { color: var(--text-muted); font-size: 1.02rem; margin-top: 10px; }
+
+  /* ============================================================
+     TEAM
+     ============================================================ */
+  .team-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 900px; margin: 0 auto; }
+  .member { background: var(--surface); border: 1px solid var(--sage-light); border-radius: var(--radius); padding: 32px 30px; box-shadow: var(--shadow-sm); }
+  .member .avatar {
+    width: 60px; height: 60px; border-radius: 50%;
+    background: var(--slate); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-head); font-weight: 600; font-size: 1.5rem; margin-bottom: 18px;
+  }
+  .member h3 { font-size: 1.3rem; margin-bottom: 2px; }
+  .member .role { color: var(--rose); font-family: var(--font-head); font-weight: 500; margin-bottom: 12px; }
+  .member p { color: var(--text-muted); font-size: 1.02rem; margin-bottom: 14px; }
+  .member a.link { font-family: var(--font-head); font-weight: 500; color: var(--slate); }
+  .member a.link:hover { color: var(--rose); }
+
+  /* ============================================================
+     INSIGHTS (daily content home)
+     ============================================================ */
+  .insights-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .post {
+    display: flex; flex-direction: column;
+    background: var(--surface); border: 1px solid var(--sage-light);
+    border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm);
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .post:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .post .thumb { height: 8px; background: linear-gradient(90deg, var(--sage-mid), var(--rose-light)); }
+  .post .body { padding: 26px 26px 28px; display: flex; flex-direction: column; flex: 1; }
+  .post .cat { font-family: var(--font-head); font-weight: 600; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sage-mid); }
+  .post h3 { font-size: 1.2rem; margin: 12px 0 10px; }
+  .post p { color: var(--text-muted); font-size: 1rem; flex: 1; }
+  .post .meta { margin-top: 18px; font-size: 0.92rem; color: var(--sage-mid); }
+  .insights-foot { text-align: center; margin-top: 40px; }
+
+  /* ============================================================
+     CTA
+     ============================================================ */
+  .cta {
+    background:
+      radial-gradient(900px 400px at 15% 120%, rgba(201,122,122,0.22), transparent 60%),
+      var(--slate-deep);
+    color: #fff; text-align: center;
+  }
+  .cta h2 { color: #fff; max-width: 18ch; margin: 0 auto 18px; }
+  .cta em { color: var(--rose-light); }
+  .cta p { color: var(--on-dark-mut); font-size: 1.2rem; max-width: 620px; margin: 0 auto 32px; }
+  .cta .fineprint { margin-top: 22px; font-size: 0.98rem; color: var(--on-dark-mut); }
+
+  /* ============================================================
+     FOOTER
+     ============================================================ */
+  footer.foot { background: var(--slate-deep); padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.08); }
+  .foot-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .foot-links { display: flex; gap: 22px; }
+  .foot-links a { color: var(--on-dark-mut); font-family: var(--font-head); font-weight: 500; font-size: 1rem; }
+  .foot-links a:hover { color: #fff; }
+  .foot-copy { color: rgba(255,255,255,0.4); font-size: 0.95rem; }
+
+  /* ============================================================
+     MOTION + RESPONSIVE
+     ============================================================ */
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+
+  @media (max-width: 940px) {
+    .steps, .features-grid, .insights-grid, .stat-strip { grid-template-columns: 1fr; }
+    .feature.lead-feature { grid-template-columns: 1fr; }
+    .pricing-grid, .team-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 760px) {
+    section { padding: 68px 0; }
+    .nav-links { display: none; }
+    .nav-links.open {
+      display: flex; flex-direction: column; align-items: stretch;
+      position: absolute; top: 72px; left: 0; right: 0;
+      background: var(--slate-deep); padding: 12px 20px 20px; gap: 4px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .nav-links.open a.navlink { min-height: 52px; }
+    .nav-cta { margin-left: 0; }
+    .menu-toggle { display: inline-flex; align-items: center; justify-content: center; }
+    .hero-stats { grid-template-columns: 1fr; gap: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="logo" aria-label="HeartCoach home">
+      <span class="mark" aria-hidden="true">♥</span><span class="heart-txt">Heart</span><span class="coach-txt">Coach</span>
+    </a>
+    <nav class="nav-links" id="navLinks" aria-label="Primary">
+      <a class="navlink" href="#how">How It Works</a>
+      <a class="navlink" href="#features">Features</a>
+      <a class="navlink" href="#pricing">Pricing</a>
+      <a class="navlink" href="#insights">Insights</a>
+      <a class="navlink" href="#about">About</a>
+      <span class="nav-cta"><a class="btn btn-care" href="#contact">Get Early Access</a></span>
+    </nav>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="hero">
+    <div class="wrap">
+      <span class="eyebrow pill reveal">Your heart has a coach now.</span>
+      <h1 class="reveal">Every heart patient deserves a <em>daily coach.</em></h1>
+      <p class="lead reveal">HeartCoach is the AI cardiac coaching platform that cardiovascular organizations license to keep their patients engaged, adherent, and healthy — between every appointment.</p>
+      <div class="hero-actions reveal">
+        <a class="btn btn-care" href="#contact">Join the Waitlist</a>
+        <a class="btn btn-ghost" href="#how">See how it works →</a>
+      </div>
+      <div class="hero-stats reveal">
+        <div class="hstat"><div class="num rose">67%</div><div class="lbl">of cardiac patients non-adherent to care plans</div></div>
+        <div class="hstat"><div class="num">$25K</div><div class="lbl">avg. cost of an avoidable cardiac event</div></div>
+        <div class="hstat"><div class="num">&lt;25%</div><div class="lbl">of eligible patients complete cardiac rehab</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ VIDEO ============ -->
+  <section class="section-white center-head" id="video">
+    <div class="wrap">
+      <div class="section-head" style="text-align:center;">
+        <span class="eyebrow">See It In Action</span>
+        <h2>Your heart has a <em>coach now.</em></h2>
+      </div>
+      <div class="video-wrap">
+        <video controls preload="metadata" playsinline>
+          <source src="HeartCoach_Video_720p.mp4" type="video/mp4">
+          Your browser doesn't support embedded video. <a href="HeartCoach_Video_720p.mp4" style="color:var(--rose-light)">Watch the video</a>.
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HOW IT WORKS ============ -->
+  <section class="section-sage" id="how">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">How It Works</span>
+        <h2>From diagnosis to <em>daily habit</em></h2>
+      </div>
+      <div class="steps">
+        <div class="step reveal">
+          <div class="idx">01</div>
+          <div class="ic" aria-hidden="true">🏥</div>
+          <h3>Practices Onboard &amp; Prescribe</h3>
+          <p>Practices onboard with HeartCoach and get a tool they can prescribe directly to their patients. Roughly 1 in 3 cardiac patients don't complete their recommended follow-up — HeartCoach re-engages that population and brings them back into the office.</p>
+          <p class="step-cite">Source: <a href="https://www.nature.com/articles/s41746-021-00443-2" target="_blank" rel="noopener">npj Digital Medicine, 2021</a> — only 56.7% completed 90-day cardiology follow-up after discharge (Cleveland Clinic, 39,209 patients).</p>
+        </div>
+        <div class="step reveal">
+          <div class="idx">02</div>
+          <div class="ic" aria-hidden="true">🤝</div>
+          <h3>Physician Trust, Built In</h3>
+          <p>Prescribed by the patient's own physician at the point of care — so HeartCoach arrives with trust already built in, not as a random wellness app. One moment in the office becomes a personal coach that's with them every day.</p>
+        </div>
+        <div class="step reveal">
+          <div class="idx">03</div>
+          <div class="ic" aria-hidden="true">🤖</div>
+          <h3>AI Coach Guides Daily</h3>
+          <p>Patients receive personalized daily coaching — medication reminders, lifestyle nudges, symptom triage, and wearable integration. 30 seconds a day, every day.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURES ============ -->
+  <section class="section-white" id="features">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Product Features</span>
+        <h2>Built for <em>real</em> cardiac care</h2>
+        <p>Five behavioral science frameworks baked into every interaction — not guesswork, evidence-based design.</p>
+      </div>
+      <div class="features-grid">
+
+        <div class="feature lead-feature reveal">
+          <div>
+            <div class="ic" aria-hidden="true">🧠</div>
+            <h3>Personalized AI Cardiac Coach</h3>
+            <p>Every patient gets a coach that knows their diagnosis, medications, risk factors, and goals. Daily tips adapt over time using real health data from wearables and check-ins. The more patients engage, the smarter it gets.</p>
+            <div class="note">Powered by Nir Eyal's Hooked Model + BJ Fogg's Tiny Habits framework — habit loops that require less than 30 seconds daily.</div>
+          </div>
+          <div class="snapshot" aria-label="Example patient snapshot">
+            <div class="cap">Today's Snapshot</div>
+            <div class="snap-row"><span class="snap-lbl">Medication Adherence</span><span class="snap-val good">94%</span></div>
+            <div class="snap-row"><span class="snap-lbl">Daily Steps</span><span class="snap-val">7,240</span></div>
+            <div class="snap-row"><span class="snap-lbl">Blood Pressure</span><span class="snap-val">118/76</span></div>
+            <div class="snap-tip">"Great BP reading today! Keep it up — your 30-day streak is almost here."</div>
+          </div>
+        </div>
+
+        <div class="feature reveal">
+          <div class="ic" aria-hidden="true">⌚</div>
+          <h3>Wearable Integration</h3>
+          <p>Real-time heart rate, HRV, and activity data from Oura Ring, Apple Watch, and Fitbit. Premium patients get continuous monitoring without manual input.</p>
+        </div>
+
+        <div class="feature triage reveal">
+          <div class="ic" aria-hidden="true">🩺</div>
+          <h3>Symptom Triage &amp; Alerts</h3>
+          <p>AI-guided emergency symptom assessment available 24/7. Escalation pathways directly to your care team when patients need it most.</p>
+        </div>
+
+        <div class="feature reveal">
+          <div class="ic" aria-hidden="true">📊</div>
+          <h3>Physician Dashboard</h3>
+          <p>Your care team sees population-level engagement, adherence trends, and individual patient flags — without adding to clinical workload.</p>
+        </div>
+
+        <div class="feature reveal">
+          <div class="ic" aria-hidden="true">🏆</div>
+          <h3>Gamified Engagement</h3>
+          <p>Loss aversion mechanics, streak rewards, and community leaderboards drive 50% higher retention than standard health apps. Healthy behavior becomes a habit, not a chore.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRICING ============ -->
+  <section class="section-sage" id="pricing">
+    <div class="wrap">
+      <div class="section-head" style="max-width:760px;">
+        <span class="eyebrow">Pricing</span>
+        <h2>Two tiers. <em>Zero friction.</em></h2>
+        <p>Your organization pays to license the platform. Patients access it free — or upgrade to premium for deeper coaching.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="price-card reveal">
+          <div class="tier">For Organizations</div>
+          <div class="amount">Custom</div>
+          <div class="sub">Per-practice license · Annual contract</div>
+          <ul>
+            <li>Full AI coach platform for all enrolled patients</li>
+            <li>EHR integration &amp; onboarding support</li>
+            <li>Physician &amp; care team dashboard</li>
+            <li>Population health analytics</li>
+            <li>HIPAA-compliant infrastructure</li>
+            <li>Dedicated implementation manager</li>
+          </ul>
+          <a class="btn btn-trust" href="#contact">Talk to Sales</a>
+        </div>
+        <div class="price-card featured reveal">
+          <span class="badge">MOST POPULAR</span>
+          <div class="tier">For Patients</div>
+          <div class="amount">$19.99</div>
+          <div class="sub">Per month · Cancel anytime</div>
+          <ul>
+            <li>Everything in the free tier</li>
+            <li>Oura Ring &amp; Apple Watch integration</li>
+            <li>Real-time heart rate &amp; HRV monitoring</li>
+            <li>AI-generated weekly health reports</li>
+            <li>2× HeartPoints earning multiplier</li>
+            <li>Priority telehealth access</li>
+          </ul>
+          <a class="btn btn-care" href="#contact">Join Waitlist</a>
+        </div>
+      </div>
+      <p class="pricing-note">All patients receive the free AI cardiac coach at no cost through their enrolled practice.</p>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="section-white" id="about">
+    <div class="wrap">
+      <div class="about-lead">
+        <span class="eyebrow">About HeartCoach</span>
+        <h2>Built to solve the <em>engagement crisis</em> in cardiac care</h2>
+        <p>75% of health app users abandon within the first week. Cardiac patients are the hardest population to activate — and the most consequential to lose.</p>
+        <p>HeartCoach was built from the ground up using five proven behavioral science frameworks: Nir Eyal's Hooked Model, BJ Fogg's Tiny Habits, loss aversion mechanics, physician trust networks, and social proof. Not guesswork — evidence.</p>
+        <p>We're a standalone technology company that licenses our AI coaching platform to cardiovascular organizations around the world. One product, every cardiovascular network.</p>
+      </div>
+      <div class="stat-strip">
+        <div class="sstat reveal"><div class="num rose">69.3%</div><div class="lbl">of patient adherence variance explained by physician endorsement (JMIR 2022)</div></div>
+        <div class="sstat reveal"><div class="num">50%</div><div class="lbl">higher retention with gamified health apps</div></div>
+        <div class="sstat reveal"><div class="num">60%</div><div class="lbl">higher adherence when patients perceive treatment as routine</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TEAM ============ -->
+  <section class="section-sage" id="team">
+    <div class="wrap">
+      <div class="section-head" style="max-width:760px;">
+        <span class="eyebrow">The Team</span>
+        <h2>Built by people who <em>care deeply</em></h2>
+        <p>A founding team combining cardiovascular expertise with product and technology.</p>
+      </div>
+      <div class="team-grid">
+        <div class="member reveal">
+          <div class="avatar" aria-hidden="true">M</div>
+          <h3>Maulik Shah, MD</h3>
+          <div class="role">Co-Founder &amp; CEO</div>
+          <p>Executive Director of the Cardiovascular Destination Center of Excellence and Cardiovascular Service Line at HonorHealth. Stanford-trained, triple board-certified Interventional Cardiologist and one of the first to perform a TAVR in Arizona.</p>
+          <a class="link" href="https://www.linkedin.com/in/maulik-shah-02969091/" target="_blank" rel="noopener">LinkedIn →</a>
+        </div>
+        <div class="member reveal">
+          <div class="avatar" aria-hidden="true">K</div>
+          <h3>Kunal Patel</h3>
+          <div class="role">Co-Founder &amp; COO</div>
+          <p>Startup veteran with 15 years leading technology companies and 3 successful exits. Passionate about the intersection of AI and healthcare, and focused on building the operational engine that turns clinical insight into patient action.</p>
+          <a class="link" href="https://www.linkedin.com/in/kunalpatelsf/" target="_blank" rel="noopener">LinkedIn →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ INSIGHTS (daily content home) ============ -->
+  <section class="section-white" id="insights">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Insights</span>
+        <h2>The latest from <em>HeartCoach</em></h2>
+        <p>Evidence, behavioral science, and practical guidance on keeping cardiac patients engaged between visits.</p>
+      </div>
+      <div class="insights-grid">
+        <article class="post reveal">
+          <div class="thumb" aria-hidden="true"></div>
+          <div class="body">
+            <span class="cat">Engagement</span>
+            <h3>Why the 90 days between visits decide cardiac outcomes</h3>
+            <p>Sample post — replace with your first published article. This is where daily content will appear.</p>
+            <div class="meta">Placeholder · 4 min read</div>
+          </div>
+        </article>
+        <article class="post reveal">
+          <div class="thumb" aria-hidden="true"></div>
+          <div class="body">
+            <span class="cat">Behavioral Science</span>
+            <h3>Tiny Habits, applied to medication adherence</h3>
+            <p>Sample post — replace with your first published article. This is where daily content will appear.</p>
+            <div class="meta">Placeholder · 5 min read</div>
+          </div>
+        </article>
+        <article class="post reveal">
+          <div class="thumb" aria-hidden="true"></div>
+          <div class="body">
+            <span class="cat">For Practices</span>
+            <h3>What physician endorsement really does to activation</h3>
+            <p>Sample post — replace with your first published article. This is where daily content will appear.</p>
+            <div class="meta">Placeholder · 3 min read</div>
+          </div>
+        </article>
+      </div>
+      <div class="insights-foot">
+        <a class="btn btn-ghost" href="#contact">Get new insights in your inbox</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section class="cta" id="contact">
+    <div class="wrap">
+      <span class="eyebrow" style="color:var(--rose-light)">Get Early Access</span>
+      <h2>Be the first to bring <em>HeartCoach</em> to your patients</h2>
+      <p>Whether you're a cardiovascular practice, health system, or patient — join the waitlist and we'll be in touch within 48 hours.</p>
+      <a class="btn btn-care" href="https://docs.google.com/forms/d/e/1FAIpQLSdP20LIpuSRDHRFMi7MQGojepgnoev6uMR9GE-Li8tDUSoYHg/viewform" target="_blank" rel="noopener">Join the Waitlist →</a>
+      <div class="fineprint">Takes 60 seconds. No spam — only early access updates.</div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot">
+  <div class="wrap foot-inner">
+    <a href="#top" class="logo"><span class="mark" aria-hidden="true">♥</span><span class="heart-txt">Heart</span><span class="coach-txt">Coach</span></a>
+    <nav class="foot-links" aria-label="Footer">
+      <a href="#how">How It Works</a>
+      <a href="#features">Features</a>
+      <a href="#insights">Insights</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="foot-copy">© 2026 HeartCoach Inc. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu
+  var toggle = document.getElementById('menuToggle');
+  var links = document.getElementById('navLinks');
+  toggle.addEventListener('click', function () {
+    var open = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  links.addEventListener('click', function (e) {
+    if (e.target.classList.contains('navlink')) {
+      links.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Scroll reveal (respects reduced-motion via CSS)
+  var reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(function (el) { io.observe(el); });
+  } else {
+    reveals.forEach(function (el) { el.classList.add('in'); });
+  }
+</script>
+</body>
+</html>
