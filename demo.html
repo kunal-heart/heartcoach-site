@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo — HeartCoach</title>
+<meta name="description" content="Watch a demo of HeartCoach, the AI cardiac coaching platform that keeps heart patients engaged, adherent, and healthy between appointments.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     HeartCoach — Slate / Sage / Rose design system
+     Slate = trust · Sage = calm/data · Rose = care/warmth/the heart
+     NEVER pure red. Rose carries all "attention" meaning.
+     Built for cardiac patients 55+: 18px body, 1.7 leading,
+     44px min touch targets, 2px slate focus rings.
+     ============================================================ */
+  :root {
+    --slate-deep:  #1C2B2A;
+    --slate:       #2D4A47;
+    --slate-hover: #233B39;
+    --sage-mid:    #4A7A74;
+    --sage-light:  #A8C8C4;
+    --sage-mist:   #E8F2F1;
+    --rose:        #C97A7A;
+    --rose-hover:  #BB6A6A;
+    --rose-light:  #E8B0B0;
+    --rose-mist:   #FAF0F0;
+    --bg:          #F6F6F8;
+    --surface:     #FFFFFF;
+
+    --text:        #1C2B2A;
+    --text-muted:  #4A7A74;
+    --on-dark:     #FFFFFF;
+    --on-dark-mut: rgba(255,255,255,0.55);
+
+    --font-head: "DM Sans", system-ui, -apple-system, sans-serif;
+    --font-body: "Lato", system-ui, -apple-system, sans-serif;
+
+    --maxw: 1140px;
+    --radius: 18px;
+    --radius-sm: 12px;
+    --shadow-sm: 0 1px 2px rgba(28,43,42,0.04), 0 4px 16px rgba(28,43,42,0.05);
+    --shadow-md: 0 8px 30px rgba(28,43,42,0.09);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+
+  body {
+    font-family: var(--font-body);
+    font-size: 18px;              /* 55+ audience: never below 16 */
+    line-height: 1.7;
+    color: var(--text);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, .eyebrow { font-family: var(--font-head); }
+  h1, h2, h3, h4 { font-weight: 500; line-height: 1.2; letter-spacing: -0.01em; color: var(--slate-deep); }
+  em { font-style: italic; color: var(--rose); }
+
+  a { color: var(--slate); text-decoration: none; }
+
+  /* Accessible focus for keyboard users */
+  a:focus-visible, button:focus-visible, .btn:focus-visible {
+    outline: 2px solid var(--slate);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+
+  section { padding: 96px 0; }
+  .section-sage { background: var(--sage-mist); }
+  .section-white { background: var(--surface); }
+
+  .eyebrow {
+    display: inline-block;
+    font-size: 0.8125rem;         /* 13px eyebrow is decorative, not body */
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sage-mid);
+    margin-bottom: 18px;
+  }
+  .eyebrow.pill {
+    background: var(--sage-mist);
+    color: var(--sage-mid);
+    padding: 8px 16px;
+    border-radius: 999px;
+    letter-spacing: 0.06em;
+  }
+  .section-head { max-width: 720px; margin-bottom: 56px; }
+  h2 { font-size: clamp(1.9rem, 4vw, 2.5rem); margin-bottom: 16px; }
+  .section-head p { font-size: 1.2rem; color: var(--text-muted); }
+
+  /* ---- Buttons ---- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 52px;             /* > 44px touch target */
+    padding: 14px 28px;
+    font-family: var(--font-head);
+    font-size: 1.0625rem;
+    font-weight: 500;
+    border-radius: 999px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: background .18s ease, transform .18s ease, border-color .18s ease, color .18s ease;
+  }
+  .btn-care { background: var(--rose); color: #fff; }          /* energetic conversion CTA */
+  .btn-care:hover { background: var(--rose-hover); transform: translateY(-1px); }
+  .btn-trust { background: var(--slate); color: #fff; }        /* trust action */
+  .btn-trust:hover { background: var(--slate-hover); transform: translateY(-1px); }
+  .btn-ghost { background: transparent; color: var(--slate); border-color: var(--sage-light); }
+  .btn-ghost:hover { background: var(--sage-mist); border-color: var(--sage-mid); }
+
+  /* ============================================================
+     NAV
+     ============================================================ */
+  header.nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--slate-deep);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 72px;
+  }
+  .logo { display: inline-flex; align-items: baseline; font-family: var(--font-head); font-size: 1.4rem; font-weight: 600; }
+  .logo .mark { color: var(--rose-light); margin-right: 8px; font-size: 1.15rem; }
+  .logo .heart-txt { color: #fff; }
+  .logo .coach-txt { color: var(--rose-light); }  /* "Coach" accent on dark */
+  .nav-links { display: flex; align-items: center; gap: 6px; }
+  .nav-links a.navlink {
+    display: inline-flex; align-items: center; min-height: 44px;
+    padding: 0 14px;
+    font-family: var(--font-head); font-weight: 500; font-size: 1rem;
+    color: var(--on-dark-mut);
+    border-radius: 8px;
+    transition: color .15s ease;
+  }
+  .nav-links a.navlink:hover { color: #fff; }
+  .nav-cta { margin-left: 8px; }
+  .nav-cta .btn { min-height: 44px; padding: 10px 22px; }
+  .menu-toggle { display: none; background: none; border: none; color: #fff; font-size: 1.6rem; cursor: pointer; min-height: 44px; min-width: 44px; }
+
+  /* ============================================================
+     HERO
+     ============================================================ */
+  .hero {
+    background:
+      radial-gradient(1100px 500px at 80% -10%, rgba(168,200,196,0.35), transparent 60%),
+      linear-gradient(180deg, var(--sage-mist) 0%, var(--bg) 70%);
+    padding: 84px 0 76px;
+    text-align: center;
+  }
+  .hero h1 {
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    max-width: 15ch;
+    margin: 22px auto 20px;
+  }
+  .hero p.lead {
+    font-size: 1.3rem; line-height: 1.6;
+    color: var(--text-muted);
+    max-width: 620px; margin: 0 auto 34px;
+  }
+  .hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 20px; max-width: 760px; margin: 72px auto 0;
+  }
+  .hstat { text-align: center; padding: 0 8px; }
+  .hstat .num { font-family: var(--font-head); font-weight: 600; font-size: clamp(2rem, 4vw, 2.75rem); color: var(--slate); line-height: 1.1; }
+  .hstat .num.rose { color: var(--rose); }
+  .hstat .lbl { font-size: 1rem; color: var(--text-muted); margin-top: 8px; }
+
+  /* ============================================================
+     VIDEO
+     ============================================================ */
+  .video-wrap {
+    max-width: 900px; margin: 0 auto;
+    border-radius: var(--radius); overflow: hidden;
+    box-shadow: var(--shadow-md);
+    background: var(--slate-deep);
+    aspect-ratio: 16 / 9;
+  }
+  .video-wrap video { width: 100%; height: 100%; display: block; object-fit: cover; }
+  .center-head { text-align: center; }
+  .center-head .section-head { margin-left: auto; margin-right: auto; }
+
+  /* ============================================================
+     DEMO PAGE
+     ============================================================ */
+  .demo-hero { padding-bottom: 40px; }
+  .demo-hero h1 { max-width: 18ch; }
+  .demo-player { padding-top: 0; background: var(--bg); }
+  .video-wrap.lg { max-width: 1000px; }
+  .video-note { text-align: center; margin-top: 18px; font-size: 1rem; color: var(--text-muted); }
+  .video-note a { color: var(--slate); text-decoration: underline; text-underline-offset: 3px; }
+  .chapters { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1000px; margin: 0 auto; }
+  .chapter { background: var(--surface); border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow-sm); }
+  .chapter .num { font-family: var(--font-head); font-weight: 600; color: var(--rose); font-size: 0.95rem; letter-spacing: 0.08em; }
+  .chapter h3 { font-size: 1.25rem; margin: 8px 0 10px; }
+  .chapter p { color: var(--text-muted); font-size: 1.02rem; }
+  @media (max-width: 940px) { .chapters { grid-template-columns: 1fr; } }
+  /* ============================================================
+     CTA
+     ============================================================ */
+  .cta {
+    background:
+      radial-gradient(900px 400px at 15% 120%, rgba(201,122,122,0.22), transparent 60%),
+      var(--slate-deep);
+    color: #fff; text-align: center;
+  }
+  .cta h2 { color: #fff; max-width: 18ch; margin: 0 auto 18px; }
+  .cta em { color: var(--rose-light); }
+  .cta p { color: var(--on-dark-mut); font-size: 1.2rem; max-width: 620px; margin: 0 auto 32px; }
+  .cta .fineprint { margin-top: 22px; font-size: 0.98rem; color: var(--on-dark-mut); }
+
+  /* ============================================================
+     FOOTER
+     ============================================================ */
+  footer.foot { background: var(--slate-deep); padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.08); }
+  .foot-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .foot-links { display: flex; gap: 22px; }
+  .foot-links a { color: var(--on-dark-mut); font-family: var(--font-head); font-weight: 500; font-size: 1rem; }
+  .foot-links a:hover { color: #fff; }
+  .foot-copy { color: rgba(255,255,255,0.4); font-size: 0.95rem; }
+
+  /* ============================================================
+     MOTION + RESPONSIVE
+     ============================================================ */
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+
+  @media (max-width: 940px) {
+    .steps, .features-grid, .insights-grid, .stat-strip { grid-template-columns: 1fr; }
+    .feature.lead-feature { grid-template-columns: 1fr; }
+    .pricing-grid, .team-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 760px) {
+    section { padding: 68px 0; }
+    .nav-links { display: none; }
+    .nav-links.open {
+      display: flex; flex-direction: column; align-items: stretch;
+      position: absolute; top: 72px; left: 0; right: 0;
+      background: var(--slate-deep); padding: 12px 20px 20px; gap: 4px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .nav-links.open a.navlink { min-height: 52px; }
+    .nav-cta { margin-left: 0; }
+    .menu-toggle { display: inline-flex; align-items: center; justify-content: center; }
+    .hero-stats { grid-template-columns: 1fr; gap: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="/" class="logo" aria-label="HeartCoach home">
+      <span class="mark" aria-hidden="true">♥</span><span class="heart-txt">Heart</span><span class="coach-txt">Coach</span>
+    </a>
+    <nav class="nav-links" id="navLinks" aria-label="Primary">
+      <a class="navlink" href="/#how">How It Works</a>
+      <a class="navlink" href="/#features">Features</a>
+      <a class="navlink" href="/#pricing">Pricing</a>
+      <a class="navlink" href="/demo" aria-current="page" style="color:#fff">Demo</a>
+      <a class="navlink" href="/#insights">Insights</a>
+      <a class="navlink" href="/#about">About</a>
+      <span class="nav-cta"><a class="btn btn-care" href="#contact">Get Early Access</a></span>
+    </nav>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ INTRO ============ -->
+  <section class="hero demo-hero">
+    <div class="wrap">
+      <span class="eyebrow pill reveal">Product Demo</span>
+      <h1 class="reveal">See how HeartCoach supports patients <em>between visits.</em></h1>
+      <p class="lead reveal">A short walkthrough of daily coaching, check-ins, and the insights your care team receives.</p>
+    </div>
+  </section>
+
+  <!-- ============ VIDEO ============ -->
+  <section class="demo-player" id="video">
+    <div class="wrap">
+      <div class="video-wrap lg">
+        <!-- To swap the demo video, replace the src below (and the fallback link) with the new file name. -->
+        <video controls preload="metadata" playsinline>
+          <source src="/HeartCoach_Demo.mp4" type="video/mp4">
+          Your browser doesn't support embedded video. <a href="/HeartCoach_Demo.mp4" style="color:var(--rose-light)">Watch the video</a>.
+        </video>
+      </div>
+      <p class="video-note">Having trouble playing it? <a href="/HeartCoach_Demo.mp4">Open the video directly</a>.</p>
+    </div>
+  </section>
+
+  <!-- ============ WHAT YOU'LL SEE ============ -->
+  <section class="section-sage">
+    <div class="wrap">
+      <div class="section-head" style="text-align:center; margin-left:auto; margin-right:auto;">
+        <span class="eyebrow">What You'll See</span>
+        <h2>Care that continues <em>after the appointment.</em></h2>
+      </div>
+      <div class="chapters">
+        <div class="chapter reveal"><div class="num">01</div><h3>Daily coaching</h3><p>Friendly, personalized guidance that helps patients stay on track with medications, activity, and habits.</p></div>
+        <div class="chapter reveal"><div class="num">02</div><h3>Simple check-ins</h3><p>Quick, accessible check-ins designed for patients 55+, so staying engaged never feels like a chore.</p></div>
+        <div class="chapter reveal"><div class="num">03</div><h3>Care team insights</h3><p>Clear signals for your practice about who is thriving and who may need a little extra attention.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section class="cta" id="contact">
+    <div class="wrap">
+      <span class="eyebrow" style="color:var(--rose-light)">Get Early Access</span>
+      <h2>Bring <em>HeartCoach</em> to your patients</h2>
+      <p>Whether you're a cardiovascular practice, health system, or patient — join the waitlist and we'll be in touch within 48 hours.</p>
+      <a class="btn btn-care" href="https://docs.google.com/forms/d/e/1FAIpQLSdP20LIpuSRDHRFMi7MQGojepgnoev6uMR9GE-Li8tDUSoYHg/viewform" target="_blank" rel="noopener">Join the Waitlist →</a>
+      <div class="fineprint">Takes 60 seconds. No spam — only early access updates.</div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot">
+  <div class="wrap foot-inner">
+    <a href="/" class="logo"><span class="mark" aria-hidden="true">♥</span><span class="heart-txt">Heart</span><span class="coach-txt">Coach</span></a>
+    <nav class="foot-links" aria-label="Footer">
+      <a href="/#how">How It Works</a>
+      <a href="/#features">Features</a>
+      <a href="/demo">Demo</a>
+      <a href="/#insights">Insights</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="foot-copy">© 2026 HeartCoach Inc. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu
+  var toggle = document.getElementById('menuToggle');
+  var links = document.getElementById('navLinks');
+  toggle.addEventListener('click', function () {
+    var open = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  links.addEventListener('click', function (e) {
+    if (e.target.classList.contains('navlink')) {
+      links.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Scroll reveal (respects reduced-motion via CSS)
+  var reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(function (el) { io.observe(el); });
+  } else {
+    reveals.forEach(function (el) { el.classList.add('in'); });
+  }
+</script>
+</body>
+</html>
